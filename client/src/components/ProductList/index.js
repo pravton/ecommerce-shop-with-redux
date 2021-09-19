@@ -5,11 +5,15 @@ import { idbPromise } from '../../utils/helpers';
 import ProductItem from '../ProductItem';
 import { QUERY_PRODUCTS } from '../../utils/queries';
 import spinner from '../../assets/spinner.gif';
-import { useStoreContext } from '../../utils/GlobalState';
+
+// import useSelector and useDispatch from redux
+import { useSelector, useDispatch } from 'react-redux';
+
 import { UPDATE_PRODUCTS } from '../../utils/actions';
 
 function ProductList() {
-  const [state, dispatch] = useStoreContext();
+  const state = useSelector(state => state);
+  const dispatch = useDispatch();
 
   const { currentCategory } = state;
 

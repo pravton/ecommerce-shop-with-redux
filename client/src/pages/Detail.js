@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
-import { useStoreContext } from '../utils/GlobalState';
+
+// import redux selector and dispatch
+import { useSelector, useDispatch } from 'react-redux';
+
 import { 
   REMOVE_FROM_CART,
   UPDATE_CART_QUANTITY,
@@ -16,7 +19,8 @@ import spinner from '../assets/spinner.gif';
 import Cart from '../components/Cart';
 
 function Detail() {
-  const [state, dispatch] = useStoreContext();
+  const state = useSelector(state => state);
+  const dispatch = useDispatch();
   const { products, cart } = state;
 
   const addToCart = () => {
@@ -32,7 +36,7 @@ function Detail() {
       // if we're updating quantity, use existing data and increment purchase quantity by 1
       idbPromise('cart', 'put', {
         ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+        purchaseQuantity: parseInt(itemInCart.purchaseQuantity)
       });
     } else {
       dispatch({
